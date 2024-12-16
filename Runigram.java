@@ -211,17 +211,19 @@ public class Runigram {
 	 * of the source image.
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
-		target=	scaled(target, source.length, source[0].length);
-		for (int i =0; i< source.length; i++){
-			for (int j =0; j< source[0].length; j++){
-				while (n>=i){
-				source[i][j]= blend(source[i][j], target[i][j], (n-i)/n);
-				
-				Runigram.display(source);
-				StdDraw.pause(5000); 
+		
+		target=	scaled(target, source[0].length, source.length);
+		Color[][] morphedImage = new Color[source.length][source[0].length];
+
+		for (int step = 0; step <= n; step++) {
+			double alpha = (double) (n-step) / n;
+			
+			 morphedImage = blend(source, target, alpha);
+				Runigram.display(morphedImage);
+			
 	}
 }
-		}}
+		
 	
 	/** Creates a canvas for the given image. */
 	public static void setCanvas(Color[][] image) {
